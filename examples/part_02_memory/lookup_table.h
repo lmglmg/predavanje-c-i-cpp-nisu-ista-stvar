@@ -10,13 +10,13 @@ typedef struct
     float data[ TABLE_SIZE ][ TABLE_SIZE ];
 } LookupTable;
 
-float f(int x, int y)
+float f( int x, int y, float rot )
 {
     float const xT = x - ( float )( TABLE_SIZE ) / 2;
     float const yT = y - ( float )( TABLE_SIZE ) / 2;
     float const r = sqrtf( xT*xT + yT*yT ) * 0.4;
     float const a = atan2f( yT, xT );
-    return sinf( r ) * exp2f( -r * 0.5f ) * ( 0.9f - cosf( a + M_PI ) );
+    return sinf( r ) * exp2f( -r * 0.5f ) * ( 0.9f - cosf( a + M_PI + rot ) );
 }
 
 int clamp( int value, int minValue, int maxValue )
