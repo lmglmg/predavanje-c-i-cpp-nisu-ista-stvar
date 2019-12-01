@@ -3,7 +3,7 @@
 #include "stdio.h"
 #include "math.h"
 
-#define TABLE_SIZE 30
+#define TABLE_SIZE 40
 
 typedef struct
 {
@@ -12,42 +12,32 @@ typedef struct
 
 float f(int x, int y)
 {
-    float const r = sqrtf( x*x + y*y ) * 0.25;
-    return sinf( r ) * exp2f( -r );
+    float const xT = x - ( float )( TABLE_SIZE ) / 2;
+    float const yT = y - ( float )( TABLE_SIZE ) / 2;
+    float const r = sqrtf( xT*xT + yT*yT ) * 0.4;
+    float const a = atan2f( yT, xT );
+    return sinf( r ) * exp2f( -r * 0.5f ) * ( 0.9f - cosf( a + M_PI ) );
+}
+
+int clamp( int value, int minValue, int maxValue )
+{
+    if ( value < minValue ) return minValue;
+    if ( value > maxValue ) return maxValue;
+    return value;
 }
 
 void print_value( float const value )
 {
-    if ( value < -0.04f )
-    {
-        putc( ':', stdout );
-    }
-    else if ( value < 0.f )
-    {
-        putc( ' ', stdout );
-    }
-    else if ( value < 0.04f )
-    {
-        putc( '-', stdout );
-    }
-    else if ( value < 0.1f )
-    {
-        putc( '~', stdout );
-    }
-    else if ( value < 0.2f )
-    {
-        putc( '+', stdout );
-    }
-    else if ( value < 0.35f )
-    {
-        putc( '*', stdout );
-    }
-    else if ( value < 0.4f )
-    {
-        putc( '#', stdout );
-    }
-    else
-    {
-        putc( '@', stdout );
+    char const * characters = "@#w*+=~- -~=+*w#@";
+
+    float const lowLimit = -0.5;
+    float const highLimit = 0.5f;
+    int const numCharacters = 17;
+
+    int index = clamp( ( value - lowLimit ) / ( highLimit - lowLimit ) * numCharacters, 0, numCharacters - 1 );
+    if ( value >= 0.f ) {
+        printf( "\x1b[32m%c\x1b[0m", characters[ index ] );
+    } else {
+        printf( "\x1b[31m%c\x1b[0m", characters[ index ] );
     }
 }

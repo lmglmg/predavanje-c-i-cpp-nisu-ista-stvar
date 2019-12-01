@@ -12,6 +12,7 @@ void printTable( LookupTable const & table )
         for ( int j = 0; j < TABLE_SIZE; ++j )
         {
             print_value( table.data[ i ][ j ] );
+            print_value( table.data[ i ][ j ] );
         }
         putc( '\n', stdout );
     }
