@@ -21,13 +21,19 @@ std::vector< TriangleSides > generateRandomTriangleSides( std::size_t size )
     std::vector< TriangleSides > randomVector( size );
 
     std::random_device randomDevice;
-    std::uniform_real_distribution< float > distribution( 1'000, 1'000 );
+    std::uniform_real_distribution< float > distribution( 0, 1000.f );
 
     std::generate
     (
         begin( randomVector ),
         end( randomVector ),
-        [ & ](){ return TriangleSides{ distribution( randomDevice ), distribution( randomDevice ), distribution( randomDevice ) }; }
+        [ & ]()
+        {
+            float const a = distribution( randomDevice );
+            float const b = distribution( randomDevice );
+            float const c = std::uniform_real_distribution< float >( std::max( a, b ) - std::min( a, b ) , a + b )( randomDevice );
+            return TriangleSides{ a, b, c };
+        }
     );
 
     return randomVector;
@@ -49,8 +55,8 @@ void timeOperation( std::string_view description, F && operation )
 
 int areaCompare( void const * a, void const * b )
 {
-    auto const areaA = area( * static_cast< TriangleSides const * >( a ) );
-    auto const areaB = area( * static_cast< TriangleSides const * >( b ) );
+    auto const areaA = area( *static_cast< TriangleSides const * >( a ) );
+    auto const areaB = area( *static_cast< TriangleSides const * >( b ) );
     return ( areaA > areaB ) - ( areaA < areaB );
 }
 
@@ -58,7 +64,7 @@ int main()
 {
     std::cout << "Sorting triangles\n";
 
-    std::size_t constexpr vectorSize = 10'000'000;
+    std::size_t constexpr vectorSize = 1'000'000;
 
     std::vector< TriangleSides > v1 = generateRandomTriangleSides( vectorSize );
     std::vector< TriangleSides > v2 = v1;
@@ -86,12 +92,14 @@ int main()
         }
     );
 
-    for ( std::size_t i  = 0; i < v1.size(); ++i )
+    if ( !std::is_sorted( begin( v1 ), end( v1 ), []( TriangleSides const & a, TriangleSides const & b ){ return area( a ) < area( b ); } ) )
     {
-        if ( area( v1[ i ] ) != area( v2[ i ] ) )
-        {
-            std::cerr << "values at " << i << " are not equal!";
-            std::terminate();
-        }
+        std::cerr << "C vector not sorted!\n";
+        std::terminate();
+    }
+    if ( !std::is_sorted( begin( v2 ), end( v2 ), []( TriangleSides const & a, TriangleSides const & b ){ return area( a ) < area( b ); } ) )
+    {
+        std::cerr << "C++ vector not sorted!\n";
+        std::terminate();
     }
 }

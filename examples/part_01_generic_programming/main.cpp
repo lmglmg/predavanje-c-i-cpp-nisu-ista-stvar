@@ -7,7 +7,7 @@ std::vector< int > generate_random_numbers( std::size_t size )
     std::vector< int > randomVector( size );
 
     std::random_device randomDevice;
-    std::uniform_int_distribution< int > distribution( -100'000, 100'000 );
+    std::uniform_int_distribution< int > distribution( 100'000, 100'000 );
 
     std::generate( begin( randomVector ), end( randomVector ), [ & ](){ return distribution( randomDevice ); } );
 
