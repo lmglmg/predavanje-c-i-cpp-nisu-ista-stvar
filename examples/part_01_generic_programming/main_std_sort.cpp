@@ -11,12 +11,10 @@ int main()
     using namespace std::chrono;
 
     std::vector< int > v( ARRAY_SIZE );
-
     std::random_device randomDevice;
     std::uniform_int_distribution< int > distribution( -ARRAY_MAX_VALUE, ARRAY_MAX_VALUE );
 
     std::generate( begin( v ), end( v ), [ & ](){ return distribution( randomDevice ); } );
-
     auto const start = high_resolution_clock::now();
 
     std::sort( begin( v ), end( v ) );
