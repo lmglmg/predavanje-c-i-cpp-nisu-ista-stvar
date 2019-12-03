@@ -12,7 +12,7 @@ int main()
 
     auto const end = high_resolution_clock::now();
 
-    auto const seconds = duration_cast< duration< float, seconds::period > >( end - start ).count();
+    float seconds = duration_cast< duration< float, seconds::period > >( end - start ).count();
 
     printf( "%f\n", seconds );
 }

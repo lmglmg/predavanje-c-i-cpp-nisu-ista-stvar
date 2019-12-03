@@ -2,6 +2,8 @@
 #include <time.h>
 #include <stdio.h>
 
+#define SECONDS_TO_NANOSECONDS 1000000000
+
 int main()
 {
     struct timespec t1;
@@ -12,7 +14,7 @@ int main()
     struct timespec t2;
     clock_gettime( CLOCK_MONOTONIC, &t2 );
 
-    float seconds = ( float )( t2.tv_sec - t1.tv_sec ) + ( float )( t2.tv_nsec - t1.tv_nsec ) / 1e9f;
+    float seconds = ( t2.tv_sec - t1.tv_sec ) + ( float )( t2.tv_nsec - t1.tv_nsec ) / SECONDS_TO_NANOSECONDS;
 
     printf( "%f\n", seconds );
 }
