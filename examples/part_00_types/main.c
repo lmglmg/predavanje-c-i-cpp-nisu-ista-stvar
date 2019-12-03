@@ -7,7 +7,7 @@ int main()
     struct timespec t1;
     clock_gettime( CLOCK_MONOTONIC, &t1 );
 
-    sleep(100);
+    sleep( 100 );
 
     struct timespec t2;
     clock_gettime( CLOCK_MONOTONIC, &t2 );
