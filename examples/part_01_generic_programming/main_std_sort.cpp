@@ -12,12 +12,13 @@ int main()
 
     std::vector< int > v( ARRAY_SIZE );
     std::random_device randomDevice;
+    std::mt19937 pseudoRanndomDevice( randomDevice() );
     std::uniform_int_distribution< int > distribution( -ARRAY_MAX_VALUE, ARRAY_MAX_VALUE );
 
-    std::generate( begin( v ), end( v ), [ & ](){ return distribution( randomDevice ); } );
+    std::generate( begin( v ), end( v ), [ & ](){ return distribution( pseudoRanndomDevice ); } );
     auto const start = high_resolution_clock::now();
 
-    std::sort( begin( v ), end( v ) );
+    std::sort( begin( v ), end( v ), []( int const a, int const b ){ return a < b; } );
 
     auto const end = high_resolution_clock::now();
 

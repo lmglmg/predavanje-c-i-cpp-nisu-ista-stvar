@@ -35,9 +35,20 @@ void quick_sort( int * arr, int start_index, int end_index )
     if ( start_index >= end_index ) return;
 
     int partition_index = partition_array( arr, start_index, end_index );
+    int left_pivot = partition_index - 1;
+    int right_pivot = partition_index + 1;
 
-    quick_sort( arr, start_index, partition_index - 1 );
-    quick_sort( arr, partition_index + 1, end_index );
+    while ( left_pivot > start_index && !( arr[ left_pivot ] < arr[ partition_index ] ) )
+    {
+        --left_pivot;
+    }
+    while ( right_pivot < end_index && !( arr[ partition_index ] < arr[ right_pivot ] ) )
+    {
+        ++right_pivot;
+    }
+
+    quick_sort( arr, start_index, left_pivot );
+    quick_sort( arr, right_pivot, end_index );
 }
 
 int main()
