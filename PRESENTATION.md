@@ -255,6 +255,8 @@ all_of, any_of, none_of, for_each, for_each_n, count, count_if, mismatch, find, 
 
 ---
 
+<!-- _class: lead -->
+
 # Pauza
 
 ---
