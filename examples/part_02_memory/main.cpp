@@ -1,11 +1,11 @@
-#include "lookup_table.h"
+#include "field_image.h"
 #include <stdlib.h>
 
 #include <memory>
 
 // // // //
 
-void printTable( LookupTable const & table )
+void printTable( FieldImage const & table )
 {
     for ( int i = 0; i < TABLE_SIZE; ++i )
     {
@@ -20,9 +20,9 @@ void printTable( LookupTable const & table )
 
 // // // //
 
-LookupTable const & generateTable_01()
+FieldImage const & generateTable_01()
 {
-    static LookupTable table;
+    static FieldImage table;
     static int is_initialized = 0;
 
     if ( is_initialized )
@@ -45,15 +45,15 @@ LookupTable const & generateTable_01()
 
 void main_01()
 {
-    LookupTable const & table = generateTable_01();
+    FieldImage const & table = generateTable_01();
     printTable( table );
 }
 
 // // // //
 
-std::unique_ptr< LookupTable > generateTable_02( float const rot )
+std::unique_ptr< FieldImage > generateTable_02( float const rot )
 {
-    std::unique_ptr< LookupTable > table = std::make_unique< LookupTable >();
+    std::unique_ptr< FieldImage > table = std::make_unique< FieldImage >();
     for ( int i = 0; i < TABLE_SIZE; ++i )
     {
         for ( int j = 0; j < TABLE_SIZE; ++j )
@@ -67,7 +67,7 @@ std::unique_ptr< LookupTable > generateTable_02( float const rot )
 
 void main_02()
 {
-    std::unique_ptr< LookupTable > table = generateTable_02( M_PI * 0.5f );
+    std::unique_ptr< FieldImage > table = generateTable_02( M_PI * 0.5f );
     static_assert( sizeof( table ) == sizeof( void* ) );
     if ( table )
     {
@@ -77,7 +77,7 @@ void main_02()
 
 // // // //
 
-void generateTable_03( LookupTable & table, float const rot )
+void generateTable_03( FieldImage & table, float const rot )
 {
     for ( int i = 0; i < TABLE_SIZE; ++i )
     {
@@ -90,30 +90,30 @@ void generateTable_03( LookupTable & table, float const rot )
 
 void main_03()
 {
-    LookupTable table;
+    FieldImage table;
     generateTable_03( table, M_PI * 0.75f );
     printTable( table );
 }
 
 // // // //
 
-void printAndClean( std::unique_ptr< LookupTable > table )
+void printAndClean( std::unique_ptr< FieldImage > table )
 {
     printTable( *table );
 }
 
 void main_04()
 {
-    std::unique_ptr< LookupTable > table = std::make_unique< LookupTable >();
+    std::unique_ptr< FieldImage > table = std::make_unique< FieldImage >();
     generateTable_03( *table, M_PI );
     printAndClean( std::move ( table ) );
 }
 
 // // // //
 
-LookupTable generateTable_05( float const rot )
+FieldImage generateTable_05( float const rot )
 {
-    LookupTable result;
+    FieldImage result;
     for ( int i = 0; i < TABLE_SIZE; ++i )
     {
         for ( int j = 0; j < TABLE_SIZE; ++j )
@@ -126,7 +126,7 @@ LookupTable generateTable_05( float const rot )
 
 void main_05()
 {
-    LookupTable table = generateTable_05( M_PI * 1.25f );
+    FieldImage table = generateTable_05( M_PI * 1.25f );
     printTable( table );
 }
 
@@ -134,7 +134,7 @@ void main_05()
 
 int main()
 {
-    printf("Lookup table size : %lu bytes\n\n", sizeof( LookupTable ) );
+    printf("Lookup table size : %lu bytes\n\n", sizeof( FieldImage ) );
 
     printf("\n\n 1:\n\n" ); main_01();
     printf("\n\n 2:\n\n" ); main_02();

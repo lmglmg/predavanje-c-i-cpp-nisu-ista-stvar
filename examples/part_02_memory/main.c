@@ -1,9 +1,9 @@
-#include "lookup_table.h"
+#include "field_image.h"
 #include <stdlib.h>
 
 // // // //
 
-void printTable( LookupTable const * table )
+void printTable( FieldImage const * table )
 {
     if ( !table ) return;
 
@@ -20,9 +20,9 @@ void printTable( LookupTable const * table )
 
 // // // //
 
-LookupTable const * generateTable_01()
+FieldImage const * generateTable_01()
 {
-    static LookupTable table;
+    static FieldImage table;
     static int is_initialized = 0;
 
     if ( is_initialized )
@@ -45,15 +45,15 @@ LookupTable const * generateTable_01()
 
 void main_01()
 {
-    LookupTable const * table = generateTable_01();
+    FieldImage const * table = generateTable_01();
     printTable( table );
 }
 
 // // // //
 
-LookupTable * generateTable_02( float const rot )
+FieldImage * generateTable_02( float const rot )
 {
-    LookupTable * table = malloc( sizeof( LookupTable ) );
+    FieldImage * table = malloc( sizeof( FieldImage ) );
     for ( int i = 0; i < TABLE_SIZE; ++i )
     {
         for ( int j = 0; j < TABLE_SIZE; ++j )
@@ -67,7 +67,7 @@ LookupTable * generateTable_02( float const rot )
 
 void main_02()
 {
-    LookupTable * table = generateTable_02( M_PI * 0.5f );
+    FieldImage * table = generateTable_02( M_PI * 0.5f );
 
     if ( table )
     {
@@ -79,7 +79,7 @@ void main_02()
 
 // // // //
 
-void generateTable_03( LookupTable * table, float const rot )
+void generateTable_03( FieldImage * table, float const rot )
 {
     if ( !table ) return;
 
@@ -94,14 +94,14 @@ void generateTable_03( LookupTable * table, float const rot )
 
 void main_03()
 {
-    LookupTable table;
+    FieldImage table;
     generateTable_03( &table, M_PI * 0.75f );
     printTable( &table );
 }
 
 // // // //
 
-void printAndClean( LookupTable * table )
+void printAndClean( FieldImage * table )
 {
     printTable( table );
     free( table );
@@ -109,7 +109,7 @@ void printAndClean( LookupTable * table )
 
 void main_04()
 {
-    LookupTable * table = malloc( sizeof( LookupTable ) );
+    FieldImage * table = malloc( sizeof( FieldImage ) );
     generateTable_03( table, M_PI );
     printAndClean( table );
     // ERROR:
@@ -118,9 +118,9 @@ void main_04()
 
 // // // //
 
-LookupTable generateTable_05( float const rot )
+FieldImage generateTable_05( float const rot )
 {
-    LookupTable result;
+    FieldImage result;
     for ( int i = 0; i < TABLE_SIZE; ++i )
     {
         for ( int j = 0; j < TABLE_SIZE; ++j )
@@ -133,7 +133,7 @@ LookupTable generateTable_05( float const rot )
 
 void main_05()
 {
-    LookupTable table = generateTable_05( M_PI * 1.25f );
+    FieldImage table = generateTable_05( M_PI * 1.25f );
     printTable( &table );
 }
 
@@ -141,7 +141,7 @@ void main_05()
 
 int main()
 {
-    printf("Lookup table size : %lu bytes\n\n", sizeof( LookupTable ) );
+    printf("Lookup table size : %lu bytes\n\n", sizeof( FieldImage ) );
 
     printf("\n\n 1:\n\n" ); main_01();
     printf("\n\n 2:\n\n" ); main_02();
