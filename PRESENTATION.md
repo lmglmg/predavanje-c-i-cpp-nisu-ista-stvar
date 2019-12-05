@@ -9,6 +9,9 @@ style: |
         font-family: 'Avenir Next';
         font-size: x-large;
     }
+    li {
+        font-size: x-large;
+    }
     a {
         color: white;
         font-size: x-large;
@@ -44,7 +47,7 @@ style: |
         position: relative;
         top: 2em
     }
-    section>table {
+    section>image {
         font-family: 'Avenir Next';
         font-size: x-large;
     }
@@ -55,7 +58,7 @@ style: |
 # C i C++ nisu ista stvar
 
 ## Luka Mate Granić
-## C++ software developer @ Microblink
+## C++ senior software developer @ Microblink
 
 ---
 
@@ -118,6 +121,8 @@ milliseconds total_time = time1 + time2;
 ---
 
 ## Usporedba: kôd
+
+__C 2__
 
 ```c
 typedef struct { long long value; } Milliseconds;
@@ -263,7 +268,169 @@ all_of, any_of, none_of, for_each, for_each_n, count, count_if, mismatch, find, 
 
 ## Primjer 3
 
+```txt
+izračunati magnetsko polje idealnog Hertzovog dipola
+prikazati to polje s ASCII znakovima
+```
+
+$$ H = \frac{ I_0 \Delta z }{ 4 \pi } \left( 1 + \frac{ 1 }{ j k r } \right) \frac{ e^{ - j k r } }{ r } sin( \Theta ) \pmb{ \hat{ \phi } } $$
+
 ---
+
+## Postava
+
+```c
+#define TABLE_SIZE 50
+typedef struct
+{
+    float data[ TABLE_SIZE ][ TABLE_SIZE ];
+} FieldImage;
+```
+
+- Velika struktura ( 1kB )
+- Pri računanju, možemo birati kut
+
+---
+
+
+## Ispis
+
+```c
+void printTable( FieldImage const * image )  // C
+{
+    if ( !image ) return;
+    // ...
+}
+```
+
+```cpp
+void printTable( FieldImage const & image )  // C++
+{
+    // ...
+}
+```
+
+- Nije moguće prikazati "prazni" parametar
+
+---
+
+## Povratna vrijednost: 1
+
+```c
+FieldImage const * generateImage_01()  // C
+{
+    // ...
+}
+```
+
+```cpp
+FieldImage const & generateImage_01()  // C++
+{
+    // ...
+}
+```
+
+| const T * | const T & |
+|---|---|
+| nullptr ili vrijednost | vrijednost |
+
+___
+
+## Diverzija
+
+__Tony Hoare__ ([QCon London 2009](https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/)): "I call it my billion-dollar mistake. It was the invention of the null reference in 1965. At that time, I was designing the first comprehensive type system for references in an object oriented language (ALGOL W). My goal was to ensure that all use of references should be absolutely safe, with checking performed automatically by the compiler. But I couldn't resist the temptation to put in a null reference, simply because it was so easy to implement. This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years."
+
+---
+
+## Povratna vrijednost: 2
+
+```c
+FieldImage * generateImage_02( float const rot )  // C
+{
+    // ...
+}
+// ...
+FieldImage * image = generateImage_02( rot );
+//...
+free( image );
+```
+
+```cpp
+std::unique_ptr< FieldImage > generateImage_02( float const rot ) {  // C++
+    // ...
+}
+// ...
+std::unique_ptr< FieldImage > = generateImage_02( rot );
+```
+
+- Jasna poruka da pozivatelju funkcije dajemo vlasništvo objekta.
+
+---
+
+## Povratna vrijednost: 3 [ C ]
+
+```c
+void generateImage_03( FieldImage * image, float const rot ) {
+    // ...
+}
+
+void main_03() {
+    FieldImage image;
+    generateImage_03( &image, M_PI * 0.75f );
+    printTable( &image );
+}
+
+void printAndClean( FieldImage * image ) {
+    printTable( image );
+    free( image );
+}
+
+void main_04() {
+    FieldImage * image = malloc( sizeof( FieldImage ) );
+    generateImage_03( image, M_PI );
+    printAndClean( image );
+}
+```
+
+---
+
+## Povratna vrijednost: 3 [ C++ ]
+
+```c
+void generateImage_03( FieldImage & image, float const rot ) {
+    // ...
+}
+
+void main_03() {
+    FieldImage image;
+    generateImage_03( image, M_PI * 0.75f );
+    printTable( image );
+}
+
+void printAndClean( std::unique_ptr< FieldImage > image ) {
+    printTable( *image );
+}
+
+void main_04() {
+    std::unique_ptr< FieldImage > image = std::make_unique< FieldImage >();
+    generateImage_03( *image, M_PI );
+    printAndClean( std::move ( image ) );
+}
+```
+
+---
+
+## Zaključak
+
+- Jasna komunikacija
+  - Postoji li vrijednost?
+  - Tko je vlasnik?
+- Sigurno korištenje
+  - Dvostruko oslobađanje memorije
+  - Memory leak
+- `unique_ptr` ima istu veličinu kao i normalni pokazivač
+- `shared_ptr` i `weak_ptr`: Brojanje referenci
+___
 
 <!-- _class: lead -->
 

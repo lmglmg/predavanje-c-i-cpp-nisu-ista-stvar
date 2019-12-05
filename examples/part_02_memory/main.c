@@ -3,16 +3,16 @@
 
 // // // //
 
-void printTable( FieldImage const * table )
+void printTable( FieldImage const * image )
 {
-    if ( !table ) return;
+    if ( !image ) return;
 
     for ( int i = 0; i < TABLE_SIZE; ++i )
     {
         for ( int j = 0; j < TABLE_SIZE; ++j )
         {
-            print_value( table->data[ i ][ j ] );
-            print_value( table->data[ i ][ j ] );
+            print_value( image->data[ i ][ j ] );
+            print_value( image->data[ i ][ j ] );
         }
         putc( '\n', stdout );
     }
@@ -20,14 +20,14 @@ void printTable( FieldImage const * table )
 
 // // // //
 
-FieldImage const * generateTable_01()
+FieldImage const * generateImage_01()
 {
-    static FieldImage table;
+    static FieldImage image;
     static int is_initialized = 0;
 
     if ( is_initialized )
     {
-        return &table;
+        return &image;
     }
     else
     {
@@ -35,90 +35,90 @@ FieldImage const * generateTable_01()
         {
             for ( int j = 0; j < TABLE_SIZE; ++j )
             {
-                table.data[i][j] = f( i, j, 0.f );
+                image.data[i][j] = f( i, j, 0.f );
             }
         }
         is_initialized = 1;
-        return &table;
+        return &image;
     }
 }
 
 void main_01()
 {
-    FieldImage const * table = generateTable_01();
-    printTable( table );
+    FieldImage const * image = generateImage_01();
+    printTable( image );
 }
 
 // // // //
 
-FieldImage * generateTable_02( float const rot )
+FieldImage * generateImage_02( float const rot )
 {
-    FieldImage * table = malloc( sizeof( FieldImage ) );
+    FieldImage * image = malloc( sizeof( FieldImage ) );
     for ( int i = 0; i < TABLE_SIZE; ++i )
     {
         for ( int j = 0; j < TABLE_SIZE; ++j )
         {
-            table->data[i][j] = f( i, j, rot );
+            image->data[i][j] = f( i, j, rot );
         }
     }
-    return table;
+    return image;
 }
 
 
 void main_02()
 {
-    FieldImage * table = generateTable_02( M_PI * 0.5f );
+    FieldImage * image = generateImage_02( M_PI * 0.5f );
 
-    if ( table )
+    if ( image )
     {
-        printTable( table );
-        free( table );
+        printTable( image );
+        free( image );
         // Memory leak if free is missing
     }
 }
 
 // // // //
 
-void generateTable_03( FieldImage * table, float const rot )
+void generateImage_03( FieldImage * image, float const rot )
 {
-    if ( !table ) return;
+    if ( !image ) return;
 
     for ( int i = 0; i < TABLE_SIZE; ++i )
     {
         for ( int j = 0; j < TABLE_SIZE; ++j )
         {
-            table->data[ i ][ j ] = f( i, j, rot);
+            image->data[ i ][ j ] = f( i, j, rot);
         }
     }
 }
 
 void main_03()
 {
-    FieldImage table;
-    generateTable_03( &table, M_PI * 0.75f );
-    printTable( &table );
+    FieldImage image;
+    generateImage_03( &image, M_PI * 0.75f );
+    printTable( &image );
 }
 
 // // // //
 
-void printAndClean( FieldImage * table )
+void printAndClean( FieldImage * image )
 {
-    printTable( table );
-    free( table );
+    printTable( image );
+    free( image );
 }
 
 void main_04()
 {
-    FieldImage * table = malloc( sizeof( FieldImage ) );
-    generateTable_03( table, M_PI );
-    printAndClean( table );
+    FieldImage * image = malloc( sizeof( FieldImage ) );
+    generateImage_03( image, M_PI );
+    printAndClean( image );
     // ERROR:
-    // free( table );
+    // free( image );
 }
 
 // // // //
 
-FieldImage generateTable_05( float const rot )
+FieldImage generateImage_05( float const rot )
 {
     FieldImage result;
     for ( int i = 0; i < TABLE_SIZE; ++i )
@@ -133,15 +133,15 @@ FieldImage generateTable_05( float const rot )
 
 void main_05()
 {
-    FieldImage table = generateTable_05( M_PI * 1.25f );
-    printTable( &table );
+    FieldImage image = generateImage_05( M_PI * 1.25f );
+    printTable( &image );
 }
 
 // // // //
 
 int main()
 {
-    printf("Lookup table size : %lu bytes\n\n", sizeof( FieldImage ) );
+    printf("Lookup image size : %lu bytes\n\n", sizeof( FieldImage ) );
 
     printf("\n\n 1:\n\n" ); main_01();
     printf("\n\n 2:\n\n" ); main_02();
