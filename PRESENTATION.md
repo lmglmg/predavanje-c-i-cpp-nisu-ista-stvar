@@ -274,3 +274,4 @@ all_of, any_of, none_of, for_each, for_each_n, count, count_if, mismatch, find, 
 ## Izvori
 
 - https://en.cppreference.com/w/cpp/algorithm
+- http://www.waves.utoronto.ca/prof/svhum/ece422/notes/05-dipole.pdf
