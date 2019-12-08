@@ -193,8 +193,19 @@ https://godbolt.org/z/xnDcxg
 ---
 
 ## Usporedba: strojni kôd
-- Veličina strukture
-  - https://godbolt.org/z/bNA2Z5
+- [Veličina strukture](https://godbolt.org/z/bNA2Z5)
+  - timespec: 128 bitova
+  - std::duration: u prinicpu proizvnoljna veličina
+  - std::chrono::high_resolution_clock::duration: 64 bita
+
+---
+
+## Zaključak
+
+- Apstrakcija iznad samo jednog broja
+  - Jasno izražavanje namjere
+  - Izbjegavanje grešaka
+- Generirani strojni kôd je optimalan
 
 ---
 
@@ -442,6 +453,15 @@ void main_04() {
   - Memory leak
 - `unique_ptr` ima istu veličinu kao i normalni pokazivač
 - `shared_ptr` i `weak_ptr`: Brojanje referenci
+
+---
+
+## Za kraj
+
+- Apstraktni kôd bez gubitka performansi
+- Velika standardna biblioteka
+- Sigurnije upravljanje memorijom
+
 ___
 
 <!-- _class: lead -->
@@ -457,3 +477,10 @@ ___
 - http://www.waves.utoronto.ca/prof/svhum/ece422/notes/05-dipole.pdf
 - http://www.stroustrup.com/ETAPS-corrected-draft.pdf
 - https://www.gnu.org/software/libc/manual/pdf/libc.pdf
+
+---
+
+## Zajednica u Zagrebu
+
+- [Zagreb C/C++ User Group](https://www.meetup.com/Zagreb-C-C-User-Group/)
+-  cpplang.slack.com \#ug-hr-zagreb
