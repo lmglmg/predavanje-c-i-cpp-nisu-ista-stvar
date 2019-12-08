@@ -67,16 +67,19 @@ style: |
 ## Zašto ovo predavanje?
 
 - "C/C++"
-- Predrasude [FILL]
+- Predrasude:
+  - Prvo treba naučiti C a onda C++
+  - C++ je objektno orijentiran jezik
+  - Potreban je programski jezik niske razine da se ostvare dobre performanse
 
 ---
 
 ## C++
 
-- "C++ is a general-purpose programming language emphasizing the design and use of type-rich,lightweight  abstractions."
+- "C++ is a general-purpose programming language emphasizing the design and use of type-rich, lightweight abstractions."
   - _The C++ Programming Language (4th Edition) - Bjarne Stroustrup_
 - Zero-overhead principle
-  - "What you don’t use, you don’t pay for. And further: What you do use, you couldn’t hand code any better."
+  - "What you don’t use, you don’t pay for. And further: What you do use, you couldn’t hand code any better." - _Foundations of C++, Bjarne Stroustrup_
 
 ---
 
@@ -84,8 +87,11 @@ style: |
 
 ```txt
 zapamtiti trenutak
+
 spavanje 100 milisekundi
+
 zapamtiti trenutak
+
 prikazati provedeno vrijeme u sekundama
 ```
 
@@ -196,10 +202,15 @@ https://godbolt.org/z/xnDcxg
 
 ```txt
 generiraj niz nasumičnih brojeva
+
 izmjeri vrijeme
+
 sortiraj niz
+
 izmjeri vrijeme
+
 provjeri da je niz sortiran
+
 prikaži vrijeme
 ```
 
@@ -236,7 +247,7 @@ std::sort( begin( v ), end( v ), []( int const a, int const b ){ return a < b; }
 | std::sort | 764 | 415 |
 | quick_sort\* | 799 | 412 |
 
-Sistem: Intel Core i7 (I7-8850H), 256 GiB RAM
+Sistem: Intel Core i7 (I7-8850H), 256 GB RAM
 
 _\* vlastita implementacija_
 _\*\* veliki raspon: (-1e6, 1e6)_
@@ -270,6 +281,7 @@ all_of, any_of, none_of, for_each, for_each_n, count, count_if, mismatch, find, 
 
 ```txt
 izračunati magnetsko polje idealnog Hertzovog dipola
+
 prikazati to polje s ASCII znakovima
 ```
 
@@ -336,7 +348,7 @@ FieldImage const & generateImage_01()  // C++
 
 ___
 
-## Diverzija
+## Digresija
 
 __Tony Hoare__ ([QCon London 2009](https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/)): "I call it my billion-dollar mistake. It was the invention of the null reference in 1965. At that time, I was designing the first comprehensive type system for references in an object oriented language (ALGOL W). My goal was to ensure that all use of references should be absolutely safe, with checking performed automatically by the compiler. But I couldn't resist the temptation to put in a null reference, simply because it was so easy to implement. This has led to innumerable errors, vulnerabilities, and system crashes, which have probably caused a billion dollars of pain and damage in the last forty years."
 
@@ -440,5 +452,8 @@ ___
 
 ## Izvori
 
+- [The C++ Programming Language (4th Edition), Bjarne Stroustrup](http://www.stroustrup.com/4th.html)
 - https://en.cppreference.com/w/cpp/algorithm
 - http://www.waves.utoronto.ca/prof/svhum/ece422/notes/05-dipole.pdf
+- http://www.stroustrup.com/ETAPS-corrected-draft.pdf
+- https://www.gnu.org/software/libc/manual/pdf/libc.pdf

@@ -16,7 +16,6 @@ int main()
     struct timespec t2;
     clock_gettime( CLOCK_MONOTONIC, &t2 );
 
-    printf("%ld %ld %ld %ld\n", t2.tv_sec, t1.tv_sec , t2.tv_nsec, t1.tv_nsec  );
     float seconds = ( t2.tv_sec - t1.tv_sec ) + ( float )( t2.tv_nsec - t1.tv_nsec ) / SECONDS_TO_NANOSECONDS;
 
     printf( "%f\n", seconds );
