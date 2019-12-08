@@ -258,7 +258,7 @@ std::sort( begin( v ), end( v ), []( int const a, int const b ){ return a < b; }
 | std::sort | 764 | 415 |
 | quick_sort\* | 799 | 412 |
 
-Sistem: Intel Core i7 (I7-8850H), 256 GB RAM
+Sistem: Intel Core i7 (I7-8850H), 16 GiB RAM
 
 _\* vlastita implementacija_
 _\*\* veliki raspon: (-1e6, 1e6)_
