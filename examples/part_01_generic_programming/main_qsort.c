@@ -33,12 +33,12 @@ int main()
 
     float seconds = ( float )( t2.tv_sec - t1.tv_sec ) + ( float )( t2.tv_nsec - t1.tv_nsec ) / 1e9f;
 
-    printf( "%f\n", seconds );
-
     if ( !is_sorted( arr, ARRAY_SIZE ) )
     {
         printf( "ERROR!" );
     }
+
+    printf( "%f\n", seconds );
 
     free( arr );
 }
