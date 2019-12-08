@@ -69,10 +69,10 @@ void main_02()
 {
     std::unique_ptr< FieldImage > image = generateImage_02( M_PI * 0.5f );
     static_assert( sizeof( image ) == sizeof( void* ) );
-    if ( image )
-    {
-         printTable( *image );
-    }
+
+    if ( !image ) return;
+
+    printTable( *image );
 }
 
 // // // //
@@ -99,6 +99,7 @@ void main_03()
 
 void printAndClean( std::unique_ptr< FieldImage > image )
 {
+    if ( !image ) return;
     printTable( *image );
 }
 

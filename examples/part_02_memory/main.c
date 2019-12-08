@@ -35,7 +35,7 @@ FieldImage const * generateImage_01()
         {
             for ( int j = 0; j < TABLE_SIZE; ++j )
             {
-                image.data[i][j] = f( i, j, 0.f );
+                image.data[ i ][ j ] = f( i, j, 0.f );
             }
         }
         is_initialized = 1;
@@ -46,6 +46,7 @@ FieldImage const * generateImage_01()
 void main_01()
 {
     FieldImage const * image = generateImage_01();
+    if ( !image ) return;
     printTable( image );
 }
 
@@ -58,7 +59,7 @@ FieldImage * generateImage_02( float const rot )
     {
         for ( int j = 0; j < TABLE_SIZE; ++j )
         {
-            image->data[i][j] = f( i, j, rot );
+            image->data[ i ][ j ] = f( i, j, rot );
         }
     }
     return image;
@@ -68,13 +69,10 @@ FieldImage * generateImage_02( float const rot )
 void main_02()
 {
     FieldImage * image = generateImage_02( M_PI * 0.5f );
-
-    if ( image )
-    {
-        printTable( image );
-        free( image );
-        // Memory leak if free is missing
-    }
+    if ( !image ) return;
+    printTable( image );
+    free( image );
+    // Memory leak if free is missing
 }
 
 // // // //
@@ -103,6 +101,7 @@ void main_03()
 
 void printAndClean( FieldImage * image )
 {
+    if ( !image ) return;
     printTable( image );
     free( image );
 }

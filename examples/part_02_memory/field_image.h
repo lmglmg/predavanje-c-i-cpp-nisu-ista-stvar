@@ -37,6 +37,6 @@ void print_value( float const value )
     float const highLimit = 2.f;
     int const numCharacters = sizeof(characters) - 1;
 
-    int index = clamp(  fabsf( value ) / highLimit * numCharacters, 0, numCharacters - 1 );
+    int index = clamp( fabsf( value ) / highLimit * numCharacters, 0, numCharacters - 1 );
     printf( "\x1b[%dm%c\x1b[0m", value >= 0.f ? 32 : 31, characters[ index ] );
 }
