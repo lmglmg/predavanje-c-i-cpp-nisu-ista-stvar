@@ -37,7 +37,7 @@ style: |
         font-size: x-large;
 
         position: relative;
-        top: 6em
+        top: 3em
     }
     section.lead h3 {
         color: #48b2e8;
@@ -45,20 +45,40 @@ style: |
         font-size: xx-large;
 
         position: relative;
-        top: 2em
+        top: 2em;
     }
     section>image {
         font-family: 'Avenir Next';
         font-size: x-large;
     }
+    img[alt~="logo"] {
+        display: inline-block;
+        clear: both;
+        float: left;
+        margin: 0;
+        height: 100px;
+    }
+
+    section.lead h1 {
+        text-align: left;
+        margin-top: 3em;
+    }
+
+    section.lead>p:first-child {
+        align-self: flex-start;
+        flex-grow: 0;
+        flex-basis: 0;
+        flex-shrink: 0;
+    }
 ---
 
 <!-- _class: lead -->
 
+![logo](images/Microblink_horizontal_RGB_white_v1_A.png)
+
 # C i C++ nisu ista stvar
 
-## Luka Mate Granić
-## C++ senior software developer @ Microblink
+## Luka Mate Granić <br>C++ senior software developer @ Microblink
 
 ---
 
